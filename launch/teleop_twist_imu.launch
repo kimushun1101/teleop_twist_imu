@@ -1,0 +1,9 @@
+<launch>
+
+    <node pkg="rt_usb_9axisimu_driver" name="imu" type="rt_usb_9axisimu_driver"/>
+
+    <node pkg="teleop_twist_imu" name="teleop" type="teleop_twist_imu">
+        <remap from="cmd_vel" to="robot/cmd_vel"/>
+    </node>
+
+</launch>
