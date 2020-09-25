@@ -4,36 +4,51 @@
 
 #include <math.h>
 
-float left_vel, front_vel;
+sensor_msgs::Imu av;
+float pre_linear_acceleration_x;
+bool cmd_on;
 
 void imuCallback_(const sensor_msgs::Imu::ConstPtr &msg)
 {
-    left_vel  = 0.5*asin(msg->linear_acceleration.x / 10);
-    front_vel = 0.5*asin(msg->linear_acceleration.y / 10);
+    av.linear_acceleration = msg->linear_acceleration;
 }
 
 int main(int argc, char **argv)
 {
-    left_vel = front_vel = 0.0;
+    pre_linear_acceleration_x = 0.0;
+    cmd_on = true;
     ros::init(argc, argv, "teleop_twist_imu");
     ros::NodeHandle n;
 
     ros::Publisher twist_pub_ = n.advertise<geometry_msgs::Twist>("cmd_vel", 1000);
     ros::Subscriber imu_sub_ = n.subscribe("imu/data_raw", 1000, imuCallback_);
 
-    ros::Rate loop_rate(100);
+    ros::Rate loop_rate(10);
     ROS_INFO("IMU teleop twist start");
 
     while (ros::ok())
     {
+        if(pre_linear_acceleration_x < 15 & av.linear_acceleration.x > 30)
+        {
+            if(cmd_on)  cmd_on = false;
+            else        cmd_on = true;
+        }
+
         geometry_msgs::Twist msg;
 
-        msg.linear.x = front_vel;
-        msg.linear.y = left_vel;
+        if(cmd_on)
+        {
+            msg.linear.x = 0.5*asin(av.linear_acceleration.x / 10);
+            msg.linear.y = 0.5*asin(av.linear_acceleration.y / 10);
+            msg.angular.z = 0.0;
+        }else{
+            msg.linear.x = msg.linear.y = 0.0;
+            msg.angular.z = 0.5*asin(av.linear_acceleration.x / 10);
+        }
 
         twist_pub_.publish(msg);
-        ros::spinOnce();
 
+        ros::spinOnce();
         loop_rate.sleep();
     }
 
