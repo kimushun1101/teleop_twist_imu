@@ -5,5 +5,9 @@
     <node pkg="teleop_twist_imu" name="teleop" type="teleop_twist_imu">
         <remap from="cmd_vel" to="robot/cmd_vel"/>
     </node>
-
+    <rosparam>
+        teleop_twist_imu/max_linear_vel: 0.5
+        teleop_twist_imu/max_angular_vel: 0.6
+        teleop_twist_imu/threshold_mode_vel : 15
+    </rosparam>
 </launch>
