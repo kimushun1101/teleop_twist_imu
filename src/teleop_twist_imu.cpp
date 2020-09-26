@@ -80,6 +80,8 @@ int main(int argc, char **argv)
             if(std::isnan(msg.angular.z)) msg.angular.z = 0.0;
         }
 
+        if(av.linear_acceleration.z > 13.0) msg.linear.x = msg.linear.y = msg.linear.z = 0.0;
+
         twist_pub_.publish(msg);
 
         ros::spinOnce();
