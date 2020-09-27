@@ -1,26 +1,22 @@
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>teleop_twist_imu</name>
-  <version>0.0.1</version>
-  <description>The teleop_twist_imu package</description>
+  <version>0.0.0</version>
+  <description>teleop twist cmd_vel from imu data</description>
+  <maintainer email="kimushun1101@gmail.com">ubuntu</maintainer>
+  <license>BSD 3-Clause License</license>
 
-  <maintainer email="kimushun1101@gmail.com">Shunsuke Kimura</maintainer>
-  <license>BSD</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>rospy</build_depend>
-  <build_depend>sensor_msgs</build_depend>
-  <build_depend>geometry_msgs</build_depend>
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
 
-  <build_export_depend>roscpp</build_export_depend>
-  <build_export_depend>rospy</build_export_depend>
-  <build_export_depend>sensor_msgs</build_export_depend>
-  <build_export_depend>geometry_msgs</build_export_depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
 
-  <exec_depend>roscpp</exec_depend>
-  <exec_depend>rospy</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>geometry_msgs</exec_depend>
-
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>
