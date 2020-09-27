@@ -18,9 +18,7 @@ def generate_launch_description():
         node_name='teleop_twist_imu',
         package='teleop_twist_imu',
         node_executable='teleop_twist_imu',
-        # parameters=[{
-        #     'port': '/dev/ttyUSB0',
-        # }]),
+        # remappings=[('cmd_vel', '/human_vel'),],
         output='screen'
     )
     
